@@ -1,0 +1,117 @@
+﻿@page
+@model RazorProject.Pages.Dogs.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    @if (User.Identity!.IsAuthenticated)
+    {
+         <a asp-page="Create">Create New</a>
+    }
+</p>
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div class="checkbox">
+                <input asp-for="ShowOnlyAdoptable" type="checkbox" class="form-check-input" />
+                <label class="control-label">Show only non-adopted dogs</label>
+            </div>
+            <div class="checkbox">
+                <input asp-for="ShowOnlyVaccinated" type="checkbox" class="form-check-input" />
+                <label class="control-label">Show only vaccinated dogs</label>
+            </div>
+            <div class="checkbox">
+                <input asp-for="ShowOnlyMixedRaces" type="checkbox" class="form-check-input" />
+                <label class="control-label">Show only mixed-race dogs</label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Dogs[0].Age)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dogs[0].Vaccinated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dogs[0].Race)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dogs[0].Size)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dogs[0].ArrivalDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dogs[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dogs[0].Comments)
+            </th>
+            <th>
+                Enclosure
+            </th>
+            @if (User.Identity!.IsAuthenticated)
+            {
+                <th>
+                    Actions
+                </th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Dogs) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vaccinated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Race)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Size)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArrivalDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comments)
+            </td>
+            <td>
+                @if (item.Enclosure != null)
+                {
+                    <a asp-page="/Enclosures/Details" asp-route-id="@item.EnclosureId">
+                        @item.Enclosure!.Name
+                    </a>
+                }
+            </td>
+            @if (User.Identity!.IsAuthenticated)
+            {
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            }
+        </tr>
+}
+    </tbody>
+</table>

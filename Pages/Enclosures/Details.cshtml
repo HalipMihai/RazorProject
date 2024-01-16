@@ -1,0 +1,46 @@
+﻿@page
+@model RazorProject.Pages.Enclosures.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Enclosure</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Enclosure.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Enclosure.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Enclosure.Capacity)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Enclosure.Capacity)
+        </dd>
+        <dt class="col-sm-2">
+            Dogs
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (var dog in Model.Enclosure.Dogs!)
+            {
+                <a asp-page="/Dogs/Details" asp-route-id="@dog.ID">
+                    @if (!string.IsNullOrEmpty(dog.Name))
+                        @dog.Name
+                    else
+                        @string.Format("Dog ID#{0}", dog.ID)
+                </a>
+                <span>&nbsp;</span>
+            }
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Enclosure.ID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

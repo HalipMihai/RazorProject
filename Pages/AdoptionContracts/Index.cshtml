@@ -1,0 +1,40 @@
+﻿@page
+@model RazorProject.Pages.AdoptionContracts.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AdoptionContract[0].DateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AdoptionContract[0].Person)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.AdoptionContract) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Person.ID)
+            </td>
+            <td>
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

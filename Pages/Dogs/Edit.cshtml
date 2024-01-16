@@ -1,0 +1,80 @@
+﻿@page
+@model RazorProject.Pages.Dogs.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Dog</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Dog.ID" />
+            <div class="form-group">
+                <label asp-for="Dog.Age" class="control-label"></label>
+                <input asp-for="Dog.Age" class="form-control" />
+                <span asp-validation-for="Dog.Age" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Dog.Vaccinated" class="control-label"></label>
+                <span class="form-control">
+                    @foreach (var value in new bool[] { true, false })
+                    {
+                        <input asp-for="Dog.Vaccinated" type="radio" value="@value" /> @value
+                    }
+                </span>
+                <span asp-validation-for="Dog.Vaccinated" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FirstRace" class="control-label"></label>
+                <select asp-for="FirstRace" class="form-control" asp-items="@Enum.GetValues<RazorProject.Models.Race>().Select(race => new SelectListItem(race.ToString(), race.ToString()))"></select>
+                <span asp-validation-for="FirstRace" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecondRace" class="control-label"></label>
+                <select asp-for="SecondRace" class="form-control" asp-items="@Enum.GetValues<RazorProject.Models.Race>().Select(race => new SelectListItem(race.ToString(), race.ToString()))"></select>
+                <span asp-validation-for="SecondRace" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Dog.Size" class="control-label"></label>
+                <input asp-for="Dog.Size" class="form-control" />
+                <span asp-validation-for="Dog.Size" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Dog.ArrivalDate" class="control-label"></label>
+                <input asp-for="Dog.ArrivalDate" class="form-control" />
+                <span asp-validation-for="Dog.ArrivalDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Dog.Name" class="control-label"></label>
+                <input asp-for="Dog.Name" class="form-control" />
+                <span asp-validation-for="Dog.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Dog.Comments" class="control-label"></label>
+                <input asp-for="Dog.Comments" class="form-control" />
+                <span asp-validation-for="Dog.Comments" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Dog.EnclosureId" class="control-label"></label>
+                <select asp-for="Dog.EnclosureId" class="form-control" asp-items="ViewBag.Enclosures"></select>
+                <span asp-validation-for="Dog.EnclosureId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
